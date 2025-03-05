@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
@@ -25,12 +25,12 @@ public class DragAndDrop : MonoBehaviour
         transform.position = GetCursorWorldPosToDragObject() + _offset;
     }
 
-    //Получаем мировые координаты курсора
+    //РџРѕР»СѓС‡Р°РµРј РјРёСЂРѕРІС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР°
     private Vector3 GetCursorWorldPosToDragObject()
     {
         var mousePosistion = Input.mousePosition;
 
-        mousePosistion.z = playerCamera.WorldToScreenPoint(transform.position).z; //Глубина
+        mousePosistion.z = playerCamera.WorldToScreenPoint(transform.position).z; //Р“Р»СѓР±РёРЅР°
         return playerCamera.ScreenToWorldPoint(mousePosistion);
     }
 }

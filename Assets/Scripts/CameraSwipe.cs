@@ -1,14 +1,14 @@
-using UnityEngine;
+п»їusing UnityEngine;
 
 public class CameraSwipe : MonoBehaviour
 {
     [SerializeField] private DragAndDrop _dragAndDrop;
-    [SerializeField] private float dragSpeed = 0.5f; // Скорость перемещения камеры
-    [SerializeField] private Vector2 minPosition; // Минимальная граница камеры (X, Y)
-    [SerializeField] private Vector2 maxPosition; // Максимальная граница камеры (X, Y)
+    [SerializeField] private float dragSpeed = 0.5f; // РЎРєРѕСЂРѕСЃС‚СЊ РїРµСЂРµРјРµС‰РµРЅРёСЏ РєР°РјРµСЂС‹
+    [SerializeField] private Vector2 minPosition; // РњРёРЅРёРјР°Р»СЊРЅР°СЏ РіСЂР°РЅРёС†Р° РєР°РјРµСЂС‹ (X, Y)
+    [SerializeField] private Vector2 maxPosition; // РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ РіСЂР°РЅРёС†Р° РєР°РјРµСЂС‹ (X, Y)
 
-    private Vector3 _dragOrigin; // Начальная точка касания/нажатия
-    private bool _isSwipping = false; // Флаг для отслеживания состояния перетаскивания
+    private Vector3 _dragOrigin; // РќР°С‡Р°Р»СЊРЅР°СЏ С‚РѕС‡РєР° РєР°СЃР°РЅРёСЏ/РЅР°Р¶Р°С‚РёСЏ
+    private bool _isSwipping = false; // Р¤Р»Р°Рі РґР»СЏ РѕС‚СЃР»РµР¶РёРІР°РЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёСЏ
 
     private void Update()
     {
@@ -19,36 +19,36 @@ public class CameraSwipe : MonoBehaviour
     {
         if (Input.GetMouseButton(0) is false || _dragAndDrop.IsDragging) return;
 
-        if (Input.GetMouseButtonDown(0)) // Прикосновение/нажатие
+        if (Input.GetMouseButtonDown(0)) // РџСЂРёРєРѕСЃРЅРѕРІРµРЅРёРµ/РЅР°Р¶Р°С‚РёРµ
         {
             _dragOrigin = GetWorldPosition();
             _isSwipping = true;
         }
 
-        if (Input.GetMouseButton(0) && _isSwipping) // Перемещение пальцем/мышью
+        if (Input.GetMouseButton(0) && _isSwipping) // РџРµСЂРµРјРµС‰РµРЅРёРµ РїР°Р»СЊС†РµРј/РјС‹С€СЊСЋ
         {
             Vector3 difference = _dragOrigin - GetWorldPosition();
             MoveCamera(difference);
         }
 
-        if (Input.GetMouseButtonUp(0)) // Отпускание пальца/мыши
+        if (Input.GetMouseButtonUp(0)) // РћС‚РїСѓСЃРєР°РЅРёРµ РїР°Р»СЊС†Р°/РјС‹С€Рё
         {
             _isSwipping = false;
         }
     }
 
-    // Получаем мировые координаты точки касания/нажатия
+    // РџРѕР»СѓС‡Р°РµРј РјРёСЂРѕРІС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ С‚РѕС‡РєРё РєР°СЃР°РЅРёСЏ/РЅР°Р¶Р°С‚РёСЏ
     private Vector3 GetWorldPosition()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    // Двигаем камеру и ограничиваем её положение
+    // Р”РІРёРіР°РµРј РєР°РјРµСЂСѓ Рё РѕРіСЂР°РЅРёС‡РёРІР°РµРј РµС‘ РїРѕР»РѕР¶РµРЅРёРµ
     void MoveCamera(Vector3 difference)
     {
         Vector3 newPosition = transform.position + difference * dragSpeed;
 
-        // Ограничиваем координаты в пределах min/max
+        // РћРіСЂР°РЅРёС‡РёРІР°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РІ РїСЂРµРґРµР»Р°С… min/max
         newPosition.x = Mathf.Clamp(newPosition.x, minPosition.x, maxPosition.x);
         newPosition.y = Mathf.Clamp(newPosition.y, minPosition.y, maxPosition.y);
 
